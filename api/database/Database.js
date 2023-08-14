@@ -36,21 +36,25 @@ class Database {
             // Verifica se a dependência "mongoose" está instalada em "node_modules"
             if (!require.resolve("mongoose")) throw { name: "DependencyNotFound", message: `Install dependency "mongoose"` }
 
-            // Define o modo de conexão da database
-            this.mode = "MONGO"
 
-            return this.#mongo
+            // Retorna a conexão em MongoDB
+            return {
+                // Define o modo de conexão da database
+                mode: "MONGO",
+                ...this.#mongo
+            }
 
         } else {
 
             // Verifica se a dependência "sql" está instalada em "node_modules"
             if (!require.resolve("sql")) throw { name: "DependencyNotFound", message: `Install dependency "sql"` }
 
-            // Define o modo de conexão da database
-            this.mode = "SQL"
-
             // Retorna o módulo SQL para trabalhar em outras APIs
-            return require('sql')
+            return {
+                // Define o modo de conexão da database
+                mode: "SQL",
+                ...require('sql')
+            }
         }
     }
 }
