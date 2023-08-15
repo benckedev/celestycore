@@ -46,14 +46,14 @@ class Database {
 
         } else {
 
-            // Verifica se a dependência "sql" está instalada em "node_modules"
-            if (!require.resolve("sql")) throw { name: "DependencyNotFound", message: `Install dependency "sql"` }
+            // Verifica se a dependência "lowdb-node" está instalada em "node_modules"
+            if (!require.resolve("lowdb-node")) throw { name: "DependencyNotFound", message: `Install dependency "lowdb-node"` }
 
             // Retorna o módulo SQL para trabalhar em outras APIs
             return {
                 // Define o modo de conexão da database
-                mode: "SQL",
-                ...require('sql')
+                mode: "LOW",
+                ...require('lowdb-node')
             }
         }
     }
