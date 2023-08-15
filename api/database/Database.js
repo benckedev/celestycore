@@ -5,23 +5,23 @@ class Database {
 
     // Criação de variáveis privadas para cada uma das opções de banco de dados 
     #mongo
-    #sql
+    #low
 
     /**
-     * - Select "sql" to make a local connection with Postgres
+     * - Select "low" to make a local connection with LowDB
      * - Opt for "mongo" connecting to MongoDB connection
      * @param {*} options
      **/
     constructor(options = {
-        sql: true,
+        low: true,
         mongo: null
     }) {
 
         // Verifica, se caso o modo SQL esteja desativado, a definição de "mongo" é válida
-        if (options.sql === false && options.mongo === null) throw { name: "InvalidArguments", message: `Please enter a valid value for "mongo?"` }
+        if (options.low === false && options.mongo === null) throw { name: "InvalidArguments", message: `Please enter a valid value for "mongo?"` }
 
         // Definição das variáveis locais de modos de conexão de banco de dados
-        this.#sql = options.sql
+        this.#low = options.low
         this.#mongo = options.mongo
 
         return this.start()
@@ -30,8 +30,8 @@ class Database {
 
     start() {
 
-        // Verifica se a opção "sql" foi definida como método de banco de dados
-        if (this.#sql === false) {
+        // Verifica se a opção "low" foi definida como método de banco de dados
+        if (this.#low === false) {
 
             // Verifica se a dependência "mongoose" está instalada em "node_modules"
             if (!require.resolve("mongoose")) throw { name: "DependencyNotFound", message: `Install dependency "mongoose"` }
@@ -49,7 +49,7 @@ class Database {
             // Verifica se a dependência "lowdb-node" está instalada em "node_modules"
             if (!require.resolve("lowdb-node")) throw { name: "DependencyNotFound", message: `Install dependency "lowdb-node"` }
 
-            // Retorna o módulo SQL para trabalhar em outras APIs
+            // Retorna o módulo LOWDB para trabalhar em outras APIs
             return {
                 // Define o modo de conexão da database
                 mode: "LOW",
